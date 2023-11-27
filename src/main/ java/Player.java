@@ -6,14 +6,19 @@ public class Player {
     private String name;
     private ArrayList<Integer> cards;
 
-    public Player(int card1, int card2, String n) {
+    public Player(String n) {
         name = n;
         cards = new ArrayList<>();
     }
 
-    public void deal() {
+    public void addCards(int card1, int card2) {
         cards.add(card1);
         cards.add(card2);
+        return;
+    }
+
+    public void hit(int card) {
+        cards.add(card);
         return;
     }
 
