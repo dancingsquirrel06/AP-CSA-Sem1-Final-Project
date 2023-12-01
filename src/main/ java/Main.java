@@ -1,4 +1,4 @@
-package src.main.java;
+package main.java;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
@@ -40,6 +40,7 @@ class Main {
             int card2 = deck.get(b);
             deck.remove(b);
             p.addCards(card1, card2);
+            System.out.println("Cards: " + p.printCards());
         }
     }
 
@@ -52,11 +53,12 @@ class Main {
                 p.hit(deck.get(a));
                 deck.remove(a);
             }
+            System.out.println("Cards: " + p.printCards());
             if (p.getSum() > 21) {
                 System.out.println("Bust!");
             } else if (p.getSum() == 21) {
                 System.out.println("You have reached 21, winner!");
-            }
+            } 
         }
     }
 }

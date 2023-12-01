@@ -1,4 +1,4 @@
-package src.main.java;
+package main.java;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -36,5 +36,13 @@ public class Player {
 
     public String getName() {
         return name;
+    }
+
+    public String printCards() {
+        String temp = "";
+        for (int card : cards) {
+            temp += card + " ";
+        }
+        return temp;
     }
 }
