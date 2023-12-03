@@ -26,8 +26,29 @@ public class Player {
         }
         return sum;
     }
+    public int getHandValue() {
+        int value = 0;
+        int acesCount = 0;
 
-    public ArrayList<Integer> getCards() {
+        for (Card card : cards) {
+            if (card.getRank().equals("Ace")) {
+                acesCount++;
+                value += 11;
+            } else {
+                value += card.getNumericValue();
+            }
+        }
+
+        // Adjust for aces
+        while (value > 21 && acesCount > 0) {
+            value -= 10; // Count the Ace as 1 instead of 11
+            acesCount--;
+        }
+
+        return value;
+    }
+
+    public ArrayList<Card> getCards() {
         return cards;
     }
 
@@ -35,11 +56,18 @@ public class Player {
         return name;
     }
 
-    public String printCards() {
-        String temp = "";
-        for (int card : cards) {
-            temp += card + " ";
+    // public String printCards() {
+    //     String temp = "";
+    //     for (int card : cards) {
+    //         temp += card + " ";
+    //     }
+    //     return temp;
+    // }
+    public String getCardList() { //this will replace printCards
+        StringBuilder cardList = new StringBuilder();
+        for (Card card : cards) {
+            cardList.append(card.toString()).append(", ");
         }
-        return temp;
+        return cardList.length() > 0 ? cardList.substring(0, cardList.length() - 2) : cardList.toString();
     }
 }
