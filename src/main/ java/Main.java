@@ -9,9 +9,14 @@ class Main {
     private static ArrayList<Player> players = new ArrayList<>();
     private static ArrayList<Integer> deck = new ArrayList<>();
     private static Random num = new Random();
+    private static boolean gameRunning = true;
 
     public static void main(String[] args) {
-        
+        while (gameRunning) {
+            System.out.println("Welcome to BlackJack!");
+            System.out.print("How many players will be playing in this game?: ");
+            String input; // input
+        }
     }
 
     public static void makeDeck() {
@@ -53,12 +58,29 @@ class Main {
                 p.hit(deck.get(a));
                 deck.remove(a);
             }
+            System.out.println();
             System.out.println("Cards: " + p.printCards());
             if (p.getSum() > 21) {
                 System.out.println("Bust!");
             } else if (p.getSum() == 21) {
                 System.out.println("You have reached 21, winner!");
+                end();
             } 
+        }
+        return;
+    }
+
+    public static void end() {
+        System.out.print("Would you like to play again? ");
+        String input;
+        if (input.equals("yes")) {
+            return;
+        } else if (input.equals("no")) {
+            System.out.println("Thank you for playing!");
+            gameRunning = false;
+        } else {
+            System.out.println("Option not valid");
+            return;
         }
     }
 }
