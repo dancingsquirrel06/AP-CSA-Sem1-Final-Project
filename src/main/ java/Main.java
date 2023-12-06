@@ -16,6 +16,7 @@ class Main {
             System.out.println("Welcome to BlackJack!");
             System.out.print("How many players will be playing in this game?: ");
             String input; // input
+            startGame();
         }
     }
 
@@ -47,6 +48,8 @@ class Main {
             p.addCards(card1, card2);
             System.out.println("Cards: " + p.printCards());
         }
+        round();
+        return;
     }
 
     public static void round() {
@@ -65,8 +68,10 @@ class Main {
             } else if (p.getSum() == 21) {
                 System.out.println("You have reached 21, winner!");
                 end();
+                return;
             } 
         }
+        round();
         return;
     }
 
