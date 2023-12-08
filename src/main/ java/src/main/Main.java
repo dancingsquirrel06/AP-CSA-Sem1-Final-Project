@@ -39,6 +39,7 @@ public class Main {
             }
         }
         Collections.shuffle(deck);
+        return;
     }
 
     public static void startGame() {
@@ -49,26 +50,34 @@ public class Main {
             System.out.println(p.getName() + "'s Cards: " + p.getCardList());
         }
         round();
+        return;
     }
 
     public static void round() {
         for (Player p : players) {
-            while (true) {
+            // while (true) {
                 System.out.println(p.getName() + "'s turn. Would you like to hit or stay?");
                 String input = scanner.next();
                 if (input.equalsIgnoreCase("hit")) {
                     p.addCard(deck.remove(0));
                     System.out.println("Cards: " + p.getCardList());
                     if (p.getHandValue() > 21) {
-                        System.out.println("Bust!");
-                        break;
+                        System.out.println("Bust for player " + p.getName() + "!");
+                        players.remove(p);
+                        if (players.size() == 0) {
+                            end();
+                            return;
+                        }
+                    } else if (p.getHandValue() == 21) {
+                        System.out.println(p.getName() + " wins!");
+                        end();
+                        return;
                     }
-                } else {
-                    break;
                 }
-            }
+            // }
         }
-        end();
+        round();
+        return;
     }
 
     public static void end() {
@@ -78,6 +87,7 @@ public class Main {
             System.out.println("Thank you for playing!");
             gameRunning = false;
         }
+        return;
         // Reset players for a new game
         // for (Player p : players) {
         //     p.resetHand();
