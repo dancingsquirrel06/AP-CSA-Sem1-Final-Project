@@ -1,8 +1,8 @@
-package main.java;
+package src.main;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import javax.smartcardio.Card;
+
 
 public class Player {
     private String name;
