@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
 
-class Main {
+public class Main {
     private static final Scanner scanner = new Scanner(System.in);
     private static ArrayList<Player> players = new ArrayList<>();
     private static ArrayList<Card> deck = new ArrayList<>();
