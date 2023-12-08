@@ -1,3 +1,4 @@
+package main.java;
 public class Card {
     private String suit;
     private String rank;
