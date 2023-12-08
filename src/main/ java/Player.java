@@ -2,6 +2,8 @@ package main.java;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import javax.smartcardio.Card;
+
 public class Player {
     private String name;
     private ArrayList<Card> cards;
@@ -11,22 +13,13 @@ public class Player {
         cards = new ArrayList<>();
     }
 
-    public void addCards(Card card) {
+    public void addCard(Card card) {
        cards.add(card);
     }
 
-    public void hit(int card) {
-        cards.add(card);
-    }
 
-    public int getSum() {
-        int sum = 0;
-        for (int c : cards) {
-            sum += c;
-        }
-        return sum;
-    }
-    public int getHandValue() {
+   
+    public int getHandValue() { //replaces getsum
         int value = 0;
         int acesCount = 0;
 
@@ -63,7 +56,7 @@ public class Player {
     //     }
     //     return temp;
     // }
-    public String getCardList() { //this will replace printCards
+    public String getCardList() { // replaces printcards
         StringBuilder cardList = new StringBuilder();
         for (Card card : cards) {
             cardList.append(card.toString()).append(", ");
