@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
 
-import main.java.Player;
+
 
 public class Main {
     
@@ -79,8 +79,8 @@ public class Main {
             gameRunning = false;
         }
         // Reset players for a new game
-        for (Player p : players) {
-            p.resetHand();
-        }
+        // for (Player p : players) {
+        //     p.resetHand();
+        // }
     }
 }
