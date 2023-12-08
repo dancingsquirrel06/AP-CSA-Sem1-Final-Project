@@ -1,91 +1,83 @@
 package main.java;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Random;
+import java.util.Collections;
 import java.util.Scanner;
 
 class Main {
     private static final Scanner scanner = new Scanner(System.in);
     private static ArrayList<Player> players = new ArrayList<>();
-    private static ArrayList<Integer> deck = new ArrayList<>();
-    private static Random num = new Random();
+    private static ArrayList<Card> deck = new ArrayList<>();
     private static boolean gameRunning = true;
 
     public static void main(String[] args) {
+        System.out.println("Welcome to BlackJack!");
+
+        // Initialize players
+        System.out.print("How many players will be playing in this game?: ");
+        int numOfPlayers = scanner.nextInt();
+        for (int i = 0; i < numOfPlayers; i++) {
+            System.out.print("Enter player " + (i + 1) + "'s name: ");
+            String playerName = scanner.next();
+            players.add(new Player(playerName));
+        }
+
         while (gameRunning) {
-            System.out.println("Welcome to BlackJack!");
-            System.out.print("How many players will be playing in this game?: ");
-            String input; // input
             startGame();
         }
     }
 
     public static void makeDeck() {
-        deck = new ArrayList<>();
-        for (int i = 1; i <= 13; i++) {
-            int temp = 4;
-            while (temp > 0) {
-                if (i < 10) {
-                    deck.add(i);
-                } else {
-                    deck.add(10);
-                }
-                temp--;
+        deck.clear();
+        String[] suits = {"Hearts", "Diamonds", "Clubs", "Spades"};
+        String[] ranks = {"2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King", "Ace"};
+        for (String suit : suits) {
+            for (String rank : ranks) {
+                deck.add(new Card(rank, suit));
             }
         }
-        return;
+        Collections.shuffle(deck);
     }
 
     public static void startGame() {
+        makeDeck();
         for (Player p : players) {
-            makeDeck();
-            int a = num.nextInt(deck.size() - 1);
-            int card1 = deck.get(a);
-            deck.remove(a);
-            int b = num.nextInt(deck.size() - 1);
-            int card2 = deck.get(b);
-            deck.remove(b);
-            p.addCards(card1, card2);
-            System.out.println("Cards: " + p.printCards());
+            p.addCard(deck.remove(0));
+            p.addCard(deck.remove(0));
+            System.out.println(p.getName() + "'s Cards: " + p.getCardList());
         }
         round();
-        return;
     }
 
     public static void round() {
         for (Player p : players) {
-            System.out.print("Would you like to hit or stay?");
-            String input; // scanner takes in input
-            if (input.equals("hit")) {
-                int a = num.nextInt(deck.size() - 1);
-                p.hit(deck.get(a));
-                deck.remove(a);
+            while (true) {
+                System.out.println(p.getName() + "'s turn. Would you like to hit or stay?");
+                String input = scanner.next();
+                if (input.equalsIgnoreCase("hit")) {
+                    p.addCard(deck.remove(0));
+                    System.out.println("Cards: " + p.getCardList());
+                    if (p.getHandValue() > 21) {
+                        System.out.println("Bust!");
+                        break;
+                    }
+                } else {
+                    break;
+                }
             }
-            System.out.println();
-            System.out.println("Cards: " + p.printCards());
-            if (p.getSum() > 21) {
-                System.out.println("Bust!");
-            } else if (p.getSum() == 21) {
-                System.out.println("You have reached 21, winner!");
-                end();
-                return;
-            } 
         }
-        round();
-        return;
+        end();
     }
 
     public static void end() {
-        System.out.print("Would you like to play again? ");
-        String input;
-        if (input.equals("yes")) {
-            return;
-        } else if (input.equals("no")) {
+        System.out.print("Would you like to play again? (yes/no): ");
+        String input = scanner.next();
+        if (input.equalsIgnoreCase("no")) {
             System.out.println("Thank you for playing!");
             gameRunning = false;
-        } else {
-            System.out.println("Option not valid");
-            return;
+        }
+        // Reset players for a new game
+        for (Player p : players) {
+            p.resetHand();
         }
     }
 }
