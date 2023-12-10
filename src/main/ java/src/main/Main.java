@@ -21,7 +21,10 @@ public class Main {
         for (int i = 0; i < numOfPlayers; i++) {
             System.out.print("Enter player " + (i + 1) + "'s name: ");
             String playerName = scanner.nextLine();
-            players.add(new Player(playerName));
+            System.out.print("Enter initial money for " + playerName + ": ");
+            int initialMoney = scanner.nextInt();
+            scanner.nextLine(); // Consume the newline
+            players.add(new Player(playerName, initialMoney));
         }
 
         while (gameRunning) {
@@ -48,9 +51,18 @@ public class Main {
         makeDeck();
     
         // Initialize the dealer
-        Player dealer = new Player("Dealer");
+        Player dealer = new Player("Dealer",0);
     
         // Deal cards to players and show their hands
+        for (Player p : players) {
+            boolean betPlaced = false;
+            while (!betPlaced) {
+                System.out.println(p.getName() + ", you have $" + p.getMoney());
+                System.out.print("Enter your bet amount: ");
+                int betAmount = scanner.nextInt();
+                betPlaced = p.placeBet(betAmount);
+            }
+        }
         for (Player p : players) {
             p.addCard(deck.remove(0));
             p.addCard(deck.remove(0));
@@ -112,6 +124,7 @@ public class Main {
         }
     }
 
+  
     public static void determineOutcome(Player player, Player dealer) {
         int playerValue = player.getHandValue();
         int dealerValue = dealer.getHandValue();
@@ -119,12 +132,16 @@ public class Main {
         System.out.print(player.getName() + ": ");
         if (playerValue > 21) {
             System.out.println("Busts. Loss.");
+            player.loseBet();
         } else if (dealerValue > 21 || playerValue > dealerValue) {
             System.out.println("Wins.");
+            player.winBet();
         } else if (playerValue == dealerValue) {
             System.out.println("Push (tie).");
+            player.winBet(); // In a push, the player gets their bet back
         } else {
             System.out.println("Loss.");
+            player.loseBet();
         }
     }
 

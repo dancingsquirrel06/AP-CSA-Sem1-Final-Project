@@ -5,18 +5,44 @@ import java.util.Arrays;
 
 
 public class Player {
+    private int money;
+    private int currentBet;
     private String name;
     private ArrayList<Card> cards;
 
-    public Player(String n) {
+    // public Player(String n) {
+    //     name = n;
+    //     cards = new ArrayList<>();
+    // }
+    public Player(String n, int initialMoney) {
         name = n;
         cards = new ArrayList<>();
+        money = initialMoney;
     }
 
     public void addCard(Card card) {
        cards.add(card);
     }
-
+    public boolean placeBet(int betAmount) {
+        if (betAmount <= money && betAmount > 0) {
+            currentBet = betAmount;
+            money -= betAmount;
+            return true;
+        } else {
+            System.out.println("Invalid bet amount. Please enter an amount between 1 and " + money);
+            return false;
+        }
+    }
+    public void winBet() {
+        money += (currentBet * 2); // Win double the bet amount
+        currentBet = 0;
+    }
+    public void loseBet() {
+        currentBet = 0;
+    }
+    public int getMoney() {
+        return money;
+    }
 
    
     public int getHandValue() { //replaces getsum
