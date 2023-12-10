@@ -72,6 +72,8 @@ public class Main {
         // Deal cards to dealer
         dealer.addCard(deck.remove(0));
         dealer.addCard(deck.remove(0));
+        System.out.println("Dealer's upcard: " + dealer.getCards().get(0));
+
     
         // Play rounds for players
         for (Player p : players) {

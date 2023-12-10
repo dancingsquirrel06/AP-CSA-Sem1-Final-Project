@@ -10,10 +10,7 @@ public class Player {
     private String name;
     private ArrayList<Card> cards;
 
-    // public Player(String n) {
-    //     name = n;
-    //     cards = new ArrayList<>();
-    // }
+
     public Player(String n, int initialMoney) {
         name = n;
         cards = new ArrayList<>();
