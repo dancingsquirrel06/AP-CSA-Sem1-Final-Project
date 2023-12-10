@@ -63,4 +63,7 @@ public class Player {
         }
         return cardList.length() > 0 ? cardList.substring(0, cardList.length() - 2) : cardList.toString();
     }
+    public void resetHand() {
+        cards.clear();
+    }
 }
