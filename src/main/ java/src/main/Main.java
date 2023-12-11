@@ -1,5 +1,6 @@
 
 package src.main;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
@@ -37,8 +38,8 @@ public class Main {
 
     public static void makeDeck() {
         deck.clear();
-        String[] suits = {"Hearts", "Diamonds", "Clubs", "Spades"};
-        String[] ranks = {"2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King", "Ace"};
+        String[] suits = { "Hearts", "Diamonds", "Clubs", "Spades" };
+        String[] ranks = { "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King", "Ace" };
         for (String suit : suits) {
             for (String rank : ranks) {
                 deck.add(new Card(rank, suit));
@@ -49,10 +50,10 @@ public class Main {
 
     public static void startGame() {
         makeDeck();
-    
+
         // Initialize the dealer
-        Player dealer = new Player("Dealer",0);
-    
+        Player dealer = new Player("Dealer", 0);
+
         // Deal cards to players and show their hands
         for (Player p : players) {
             boolean betPlaced = false;
@@ -68,31 +69,29 @@ public class Main {
             p.addCard(deck.remove(0));
             System.out.println(p.getName() + "'s Cards: " + p.getCardList());
         }
-    
+
         // Deal cards to dealer
         dealer.addCard(deck.remove(0));
         dealer.addCard(deck.remove(0));
         System.out.println("Dealer's upcard: " + dealer.getCards().get(0));
 
-    
         // Play rounds for players
         for (Player p : players) {
             playerTurn(p);
         }
-    
+
         // Dealer's turn
         dealerTurn(dealer);
-    
+
         // Determine outcome for each player
         for (Player p : players) {
             determineOutcome(p, dealer);
         }
-    
+
         // Reset players and dealer for the next game
         resetPlayers();
         dealer.resetHand();
     }
-    
 
     public static void playerTurn(Player player) {
         while (true) {
@@ -105,6 +104,8 @@ public class Main {
                 if (player.getHandValue() > 21) {
                     System.out.println("Bust for player " + player.getName() + "!");
                     break; // Exit the loop if the player busts
+                } else if (player.getHandValue() == 21) {
+                    System.out.println(player.getName() + " wins!");
                 }
             } else if (input.equalsIgnoreCase("stay")) {
                 System.out.println(player.getName() + " stays.");
@@ -113,6 +114,7 @@ public class Main {
                 System.out.println("Invalid input. Please choose 'hit' or 'stay'.");
             }
         }
+        return;
     }
 
     public static void dealerTurn(Player dealer) {
@@ -126,7 +128,6 @@ public class Main {
         }
     }
 
-  
     public static void determineOutcome(Player player, Player dealer) {
         int playerValue = player.getHandValue();
         int dealerValue = dealer.getHandValue();
@@ -158,7 +159,7 @@ public class Main {
     }
 
     public static void resetPlayers() {
-      for (Player p : players) {
+        for (Player p : players) {
             p.resetHand();
         }
     }
