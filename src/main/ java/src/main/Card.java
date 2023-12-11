@@ -1,4 +1,5 @@
 package src.main;
+
 public class Card {
     private String suit;
     private String rank;
@@ -9,14 +10,17 @@ public class Card {
     }
 
     public String getSuit() {
+        // returns suit of the card
         return suit;
     }
 
     public String getRank() {
+        // returns rank of the card
         return rank;
     }
 
     public int getNumericValue() {
+        // returns numeric value of the card (not always the same as the rank)
         switch (rank) {
             case "Ace":
                 return 11; // Ace can be 1 or 11, but initially, we'll treat it as 11

@@ -31,7 +31,7 @@ public class Main {
         while (gameRunning) {
             startGame();
             if (!askToPlayAgain()) {
-                gameRunning = false;
+                gameRunning = false; // ends while loop
             }
         }
     }
@@ -40,6 +40,7 @@ public class Main {
         deck.clear();
         String[] suits = { "Hearts", "Diamonds", "Clubs", "Spades" };
         String[] ranks = { "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King", "Ace" };
+        // populates deck
         for (String suit : suits) {
             for (String rank : ranks) {
                 deck.add(new Card(rank, suit));
@@ -99,6 +100,7 @@ public class Main {
             String input = scanner.next();
 
             if (input.equalsIgnoreCase("hit")) {
+                // adds a card to the players deck and determines if they bust or reach 21
                 player.addCard(deck.remove(0));
                 System.out.println("Cards: " + player.getCardList());
                 if (player.getHandValue() > 21) {
@@ -138,12 +140,12 @@ public class Main {
             player.loseBet();
         } else if (dealerValue > 21 || playerValue > dealerValue) {
             System.out.println("Wins.");
-            player.winBet();
+            player.winBet(); // gets double the amount of their bet (their bet + dealer matches)
         } else if (playerValue == dealerValue) {
             System.out.println("Push (tie).");
             player.winBet(); // In a push, the player gets their bet back
         } else {
-            System.out.println("Loss.");
+            System.out.println("Loss."); // player achieves less than the dealer
             player.loseBet();
         }
     }
@@ -159,6 +161,7 @@ public class Main {
     }
 
     public static void resetPlayers() {
+        // resets the hands of all players
         for (Player p : players) {
             p.resetHand();
         }
